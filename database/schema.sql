@@ -1,5 +1,4 @@
-CREATE DATABASE IF NOT EXISTS gestion_reservas CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE gestion_reservas;
+-- Import this file after selecting the target database in MySQL/phpMyAdmin.
 
 DROP TABLE IF EXISTS reserva_evento;
 DROP TABLE IF EXISTS reserva;

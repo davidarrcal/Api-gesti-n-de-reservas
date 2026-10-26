@@ -24,7 +24,7 @@ Aplicación de prueba técnica para gestionar reservas de alojamiento con PHP na
 
    En Windows se puede duplicar `.env.example` manualmente como `.env`.
 
-3. Importar `database/schema.sql` desde MySQL/MariaDB, phpMyAdmin o la consola. El script crea la base de datos, las tablas y datos de ejemplo.
+3. Crear la base de datos y seleccionarla. Importar `database/schema.sql` desde MySQL/MariaDB o phpMyAdmin; el script crea las tablas y datos de ejemplo dentro de la base seleccionada.
 
 4. Arrancar el servidor:
 
