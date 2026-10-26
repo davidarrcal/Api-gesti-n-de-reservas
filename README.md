@@ -34,6 +34,14 @@ Aplicación de prueba técnica para gestionar reservas de alojamiento con PHP na
 
    Abrir `http://localhost:8000/reservas`.
 
+Como alternativa, con Docker Desktop abierto se puede levantar todo, incluida la base de datos:
+
+```bash
+docker compose up --build
+```
+
+La aplicación quedará en `http://localhost:8000/reservas` y MySQL estará disponible en el puerto local `3307`.
+
 ## API
 
 Todas las respuestas tienen la forma `{ "datos": ... }` cuando son correctas o `{ "error": ..., "detalles": ... }` cuando hay un error.
