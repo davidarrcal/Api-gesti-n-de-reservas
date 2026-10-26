@@ -9,7 +9,9 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && a2enmod rewrite \
     && sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf \
-    && sed -ri -e 's!/var/www/!/var/www/html/public!g' /etc/apache2/apache2.conf
+    && sed -ri -e 's!/var/www/!/var/www/html/public!g' /etc/apache2/apache2.conf \
+    && sed -ri -e 's/Listen 80/Listen 10000/g' /etc/apache2/ports.conf \
+    && sed -ri -e 's/\*:80/\*:10000/g' /etc/apache2/sites-available/*.conf
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY composer.json composer.lock ./
@@ -18,4 +20,4 @@ RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoload
 COPY . .
 
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
-EXPOSE 80
+EXPOSE 10000
