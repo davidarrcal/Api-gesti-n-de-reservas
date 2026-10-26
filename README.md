@@ -139,3 +139,7 @@ La URL pública se añadirá aquí después de crear el servidor:
 El endpoint `/health` verifica que PHP puede conectarse a la base de datos y está configurado como health check del servicio.
 
 Railway sigue siendo una alternativa válida si vuelve a permitir registros nuevos.
+
+### Render + Aiven
+
+Render puede ejecutar gratuitamente el contenedor web, mientras que Aiven ofrece una instancia MySQL gratuita para proyectos pequeños. Crear ambos servicios y añadir en Render las variables `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER` y `DB_PASSWORD` de Aiven. Para validar TLS, copiar también el contenido del certificado CA de Aiven en `DB_SSL_CA_CONTENT`; la aplicación lo usa sin guardar el certificado en Git.
