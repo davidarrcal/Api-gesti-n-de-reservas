@@ -121,6 +121,8 @@ HOKAS ofrece un servidor PHP gratuito con MySQL, variables de entorno, HTTPS y d
 8. Reiniciar o redeployar el servidor y abrir el subdominio HTTPS proporcionado.
 9. Comprobar `/health`, `/reservas` y `/api/reservas`.
 
+Para un hosting compartido sin document root configurable: subir el contenido de `public/`, junto con las carpetas `src/`, `templates/` y `vendor/`, directamente dentro de `htdocs/`. Ejecutar previamente `composer install --no-dev --optimize-autoloader` y crear `.env` en `htdocs/` con las credenciales de MySQL. El `.htaccess` bloquea el acceso HTTP a `.env`.
+
 La URL pública se añadirá aquí después de crear el servidor:
 
 `Demo: pendiente de configurar`

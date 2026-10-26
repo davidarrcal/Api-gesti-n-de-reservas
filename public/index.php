@@ -11,9 +11,10 @@ use App\ReservationValidator;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
-require dirname(__DIR__) . '/vendor/autoload.php';
+$projectRoot = is_file(dirname(__DIR__) . '/vendor/autoload.php') ? dirname(__DIR__) : __DIR__;
+require $projectRoot . '/vendor/autoload.php';
 
-loadEnvironment(dirname(__DIR__) . '/.env');
+loadEnvironment($projectRoot . '/.env');
 $securityHeaders = [
     'X-Content-Type-Options: nosniff',
     'X-Frame-Options: DENY',
@@ -37,7 +38,7 @@ try {
         handleApi($service, $path, $method);
     }
 
-    $twig = new Environment(new FilesystemLoader(dirname(__DIR__) . '/templates'), [
+    $twig = new Environment(new FilesystemLoader($projectRoot . '/templates'), [
         'cache' => false,
         'autoescape' => 'html',
     ]);
