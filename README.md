@@ -136,7 +136,7 @@ La URL pública se añadirá aquí después de crear el servidor:
 5. Generar un dominio público para el servicio web.
 6. Comprobar `/health`, `/reservas` y `/api/reservas`.
 
-El endpoint `/health` verifica que PHP puede conectarse a la base de datos y está configurado como health check del servicio.
+El endpoint `/health` comprueba que el proceso PHP está vivo y está configurado como health check del servicio. Las credenciales de MySQL se validan al cargar `/reservas` o cualquier endpoint de la API.
 
 Railway sigue siendo una alternativa válida si vuelve a permitir registros nuevos.
 

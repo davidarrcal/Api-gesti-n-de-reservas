@@ -24,15 +24,16 @@ foreach ($securityHeaders as $securityHeader) header($securityHeader);
 $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
+// Keep the platform health check independent from external database availability.
+if ($path === '/health' && $method === 'GET') {
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(['status' => 'ok']);
+    exit;
+}
+
 try {
     $db = Database::connect();
     $service = new ReservationService($db, new ReservationRepository($db), new ReservationValidator());
-
-    if ($path === '/health') {
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode(['status' => 'ok']);
-        exit;
-    }
 
     if (str_starts_with($path, '/api/')) {
         handleApi($service, $path, $method);
