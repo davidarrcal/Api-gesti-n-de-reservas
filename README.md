@@ -85,4 +85,20 @@ Para 1000 reservas por hora mantendría índices sobre filtros, paginaría siemp
 
 ## Despliegue
 
-No se incluye una URL pública en este entorno. La aplicación está preparada para un hosting PHP que permita configurar variables de entorno, ejecutar Composer y conectar con MySQL. El document root debe apuntar a `public/`.
+La aplicación incluye `Dockerfile` y está preparada para un servicio que permita desplegar contenedores y configurar una base MySQL/MariaDB externa. El document root del hosting PHP tradicional debe apuntar a `public/`.
+
+Variables necesarias en producción:
+
+```text
+DB_HOST=...
+DB_PORT=3306
+DB_NAME=...
+DB_USER=...
+DB_PASSWORD=...
+```
+
+Después de crear la base de datos, importar `database/schema.sql` y configurar esas variables, comprobar `/reservas` y `/api/reservas`. No se debe subir `.env` al repositorio.
+
+La URL pública se añadirá aquí después de crear el servicio de hosting:
+
+`Demo: pendiente de configurar`

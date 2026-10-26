@@ -1,0 +1,6 @@
+.git
+.env
+vendor
+.phpunit.result.cache
+tests
+README.md

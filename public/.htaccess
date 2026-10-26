@@ -1,0 +1,6 @@
+RewriteEngine On
+
+# Keep real assets available and route application URLs through the front controller.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
