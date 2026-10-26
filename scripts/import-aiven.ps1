@@ -19,7 +19,8 @@ $password = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
 $env:MYSQL_PWD = $password
 try {
     Get-Content -Raw -LiteralPath $schema |
-        & $mysql --host=$hostName --port=$port --user=$user --database=$database --ssl-mode=REQUIRED
+        # XAMPP ships MariaDB client, which uses --ssl instead of MySQL's --ssl-mode.
+        & $mysql --host=$hostName --port=$port --user=$user --database=$database --ssl
     if ($LASTEXITCODE -ne 0) {
         throw "MySQL termino con codigo $LASTEXITCODE"
     }
