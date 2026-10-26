@@ -107,6 +107,17 @@ DB_PASSWORD=...
 
 Después de crear la base de datos, importar `database/schema.sql` y configurar esas variables, comprobar `/reservas` y `/api/reservas`. No se debe subir `.env` al repositorio.
 
+### Railway
+
+1. Crear un proyecto nuevo en Railway y añadir un servicio MySQL.
+2. Añadir el repositorio de GitHub como servicio de aplicación. Railway detectará el `Dockerfile`.
+3. En el servicio de aplicación, configurar las variables `MYSQLHOST`, `MYSQLPORT`, `MYSQLDATABASE`, `MYSQLUSER` y `MYSQLPASSWORD` usando los valores del servicio MySQL. La aplicación también acepta los nombres `DB_*`.
+4. Ejecutar una importación de `database/schema.sql` contra el servicio MySQL. Puede hacerse desde un cliente local usando las credenciales públicas de Railway.
+5. Generar un dominio público para el servicio web.
+6. Comprobar `/health`, `/reservas` y `/api/reservas`.
+
+El endpoint `/health` verifica que PHP puede conectarse a la base de datos y está configurado como health check del servicio.
+
 La URL pública se añadirá aquí después de crear el servicio de hosting:
 
 `Demo: pendiente de configurar`

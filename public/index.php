@@ -27,6 +27,12 @@ try {
     $db = Database::connect();
     $service = new ReservationService($db, new ReservationRepository($db), new ReservationValidator());
 
+    if ($path === '/health') {
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['status' => 'ok']);
+        exit;
+    }
+
     if (str_starts_with($path, '/api/')) {
         handleApi($service, $path, $method);
     }
