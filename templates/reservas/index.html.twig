@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block title %}Listado{% endblock %}
+{% block content %}
+<section class="page-heading"><div><p class="eyebrow">OPERACIONES</p><h1>Reservas</h1><p class="muted">Consulta y gestiona las estancias del equipo.</p></div><a class="button" href="/reservas/nueva">+ Nueva reserva</a></section>
+<div id="feedback" class="feedback" hidden></div>
+<form id="filters" class="filters" method="get">
+    <label>Huesped <input name="busqueda" value="{{ filtros.busqueda|default('') }}" placeholder="Nombre..." maxlength="120"></label>
+    <label>Estado <select name="estado"><option value="">Todos</option>{% for estado in ['pendiente', 'confirmada', 'cancelada'] %}<option value="{{ estado }}"{% if filtros.estado|default('') == estado %} selected{% endif %}>{{ estado|capitalize }}</option>{% endfor %}</select></label>
+    <label>Entrada desde <input type="date" name="fecha_desde" value="{{ filtros.fecha_desde|default('') }}"></label>
+    <label>Salida hasta <input type="date" name="fecha_hasta" value="{{ filtros.fecha_hasta|default('') }}"></label>
+    <button class="button secondary" type="submit">Filtrar</button>
+</form>
+<div class="table-wrap"><table><thead><tr><th>Huesped</th><th>Alojamiento</th><th>Estancia</th><th>Importe</th><th>Estado</th><th></th></tr></thead><tbody id="reservations-body">
+{% for reserva in reservas %}<tr data-id="{{ reserva.id }}"><td><strong>{{ reserva.nombre_huesped }}</strong><small>{{ reserva.email_huesped }}</small></td><td>{{ reserva.nombre_alojamiento }}</td><td>{{ reserva.fecha_entrada|date('d/m/Y') }} - {{ reserva.fecha_salida|date('d/m/Y') }}</td><td>{{ reserva.importe|number_format(2, ',', '.') }} EUR</td><td><span class="status status-{{ reserva.estado }}">{{ reserva.estado|capitalize }}</span></td><td class="actions"><a href="/reservas/{{ reserva.id }}">Ver</a>{% if reserva.estado != 'cancelada' %}<button class="link-button cancel-button" data-id="{{ reserva.id }}">Cancelar</button>{% endif %}</td></tr>{% else %}<tr><td colspan="6" class="empty">No hay reservas con esos filtros.</td></tr>{% endfor %}
+</tbody></table></div>
+{% endblock %}

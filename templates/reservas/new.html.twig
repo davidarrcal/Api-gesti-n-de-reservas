@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+{% block title %}Nueva reserva{% endblock %}
+{% block content %}
+<a class="back" href="/reservas">← Volver al listado</a><section class="page-heading"><div><p class="eyebrow">OPERACIONES</p><h1>Nueva reserva</h1><p class="muted">Los campos marcados son obligatorios.</p></div></section>
+<div id="feedback" class="feedback" hidden></div>
+<form id="reservation-form" class="card form-grid"><label>Nombre del huesped *<input name="nombre_huesped" required maxlength="120"></label><label>Email *<input type="email" name="email_huesped" required maxlength="180"></label><label>Alojamiento *<input name="nombre_alojamiento" required maxlength="160"></label><label>Importe (EUR) *<input type="number" name="importe" min="0" step="0.01" required></label><label>Fecha de entrada *<input type="date" name="fecha_entrada" required></label><label>Fecha de salida *<input type="date" name="fecha_salida" required></label><label class="full">Notas<textarea name="notas" maxlength="2000" rows="4"></textarea></label><div class="full form-actions"><button class="button" type="submit">Crear reserva</button><a class="button secondary" href="/reservas">Cancelar</a></div></form>
+{% endblock %}

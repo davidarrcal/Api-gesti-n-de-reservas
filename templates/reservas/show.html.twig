@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+{% block title %}Reserva #{{ reserva.id }}{% endblock %}
+{% block content %}
+<a class="back" href="/reservas">← Volver al listado</a>
+<section class="page-heading"><div><p class="eyebrow">RESERVA #{{ reserva.id }}</p><h1>{{ reserva.nombre_huesped }}</h1><p class="muted">Creada el {{ reserva.fecha_creacion|date('d/m/Y H:i') }}</p></div><span class="status status-{{ reserva.estado }}">{{ reserva.estado|capitalize }}</span></section>
+<div id="feedback" class="feedback" hidden></div>
+<div class="detail-grid"><article class="card"><h2>Datos de la estancia</h2><dl><dt>Alojamiento</dt><dd>{{ reserva.nombre_alojamiento }}</dd><dt>Entrada</dt><dd>{{ reserva.fecha_entrada|date('d/m/Y') }}</dd><dt>Salida</dt><dd>{{ reserva.fecha_salida|date('d/m/Y') }}</dd><dt>Importe</dt><dd>{{ reserva.importe|number_format(2, ',', '.') }} EUR</dd><dt>Contacto</dt><dd>{{ reserva.email_huesped }}</dd><dt>Notas</dt><dd>{{ reserva.notas|default('Sin notas') }}</dd></dl>{% if reserva.estado != 'cancelada' %}<button class="button danger cancel-button" data-id="{{ reserva.id }}">Cancelar reserva</button>{% endif %}</article><article class="card"><h2>Historial</h2><ol class="timeline">{% for evento in reserva.eventos %}<li><span class="timeline-dot"></span><div><strong>{{ evento.descripcion }}</strong><time>{{ evento.fecha_creacion|date('d/m/Y H:i') }}</time></div></li>{% endfor %}</ol></article></div>
+{% endblock %}
