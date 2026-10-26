@@ -39,6 +39,9 @@ final class ReservationService
     public function changeStatus(int $id, mixed $newStatus): array
     {
         $status = $this->validator->validateStatus($newStatus);
+        if ($status === 'pendiente') {
+            throw new BadRequestException('El estado solo puede cambiarse a confirmada o cancelada.', ['estado' => 'Usa confirmada o cancelada.']);
+        }
         $reservation = $this->repository->find($id);
         if (!$reservation) throw new NotFoundException('Reserva no encontrada.');
         if ($reservation['estado'] === $status) throw new BadRequestException('La reserva ya tiene ese estado.');

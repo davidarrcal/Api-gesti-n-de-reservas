@@ -2,6 +2,10 @@
 
 Aplicación de prueba técnica para gestionar reservas de alojamiento con PHP nativo, MySQL, Twig y JavaScript vanilla. No utiliza framework de aplicación.
 
+**Demo:** https://api-gesti-n-de-reservas-1.onrender.com
+
+**Repositorio:** https://github.com/davidarrcal/Api-gesti-n-de-reservas
+
 ## Requisitos
 
 - PHP 8.1 o superior con `pdo_mysql` y `mbstring`.
@@ -93,7 +97,7 @@ Para 1000 reservas por hora mantendría índices sobre filtros, paginaría siemp
 
 ## Despliegue
 
-La aplicación incluye `Dockerfile` y está preparada para un servicio que permita desplegar contenedores y configurar una base MySQL/MariaDB externa. El document root del hosting PHP tradicional debe apuntar a `public/`.
+La aplicación desplegada usa Render para el contenedor PHP/Apache y Aiven para MySQL. Render puede tardar aproximadamente un minuto en despertar después de un periodo de inactividad dentro del plan gratuito.
 
 Variables necesarias en producción:
 
@@ -105,43 +109,12 @@ DB_USER=...
 DB_PASSWORD=...
 ```
 
-Después de crear la base de datos, importar `database/schema.sql` y configurar esas variables, comprobar `/reservas` y `/api/reservas`. No se debe subir `.env` al repositorio.
+Después de crear la base de datos, importar `database/schema.sql` y configurar esas variables, comprobar:
 
-### HOKAS (opcion recomendada para esta demo)
+- `https://api-gesti-n-de-reservas-1.onrender.com/health`
+- `https://api-gesti-n-de-reservas-1.onrender.com/reservas`
+- `https://api-gesti-n-de-reservas-1.onrender.com/api/reservas`
 
-HOKAS ofrece un servidor PHP gratuito con MySQL, variables de entorno, HTTPS y despliegue desde GitHub. La cuenta gratuita tiene recursos limitados y no garantiza disponibilidad continua, por lo que se utiliza únicamente como demo de la prueba técnica.
+No se debe subir `.env` al repositorio. Para validar TLS, copiar también el contenido del certificado CA de Aiven en `DB_SSL_CA_CONTENT`; la aplicación lo usa sin guardar el certificado en Git.
 
-1. Crear una cuenta en [HOKAS](https://hokas.net/sign-up).
-2. Crear un servidor de tipo **PHP Server** en el plan gratuito.
-3. Conectar el repositorio `davidarrcal/Api-gesti-n-de-reservas` desde GitHub.
-4. Configurar el document root en `public/` y ejecutar `composer install` desde la terminal del servidor si el panel no lo hace automáticamente.
-5. Crear una base MySQL desde el panel y guardar sus credenciales.
-6. Importar `database/schema.sql` desde la herramienta MySQL/phpMyAdmin del panel.
-7. Añadir como variables de entorno `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER` y `DB_PASSWORD`.
-8. Reiniciar o redeployar el servidor y abrir el subdominio HTTPS proporcionado.
-9. Comprobar `/health`, `/reservas` y `/api/reservas`.
-
-Para un hosting compartido sin document root configurable: subir el contenido de `public/`, junto con las carpetas `src/`, `templates/` y `vendor/`, directamente dentro de `htdocs/`. Ejecutar previamente `composer install --no-dev --optimize-autoloader` y crear `.env` en `htdocs/` con las credenciales de MySQL. El `.htaccess` bloquea el acceso HTTP a `.env`.
-
-Para importar el esquema en Aiven desde Windows con XAMPP, ejecutar `powershell -ExecutionPolicy Bypass -File .\scripts\import-aiven.ps1`. El script solicita la contraseña de forma oculta y no la guarda.
-
-La URL pública se añadirá aquí después de crear el servidor:
-
-`Demo: pendiente de configurar`
-
-### Railway (alternativa)
-
-1. Crear un proyecto nuevo en Railway y añadir un servicio MySQL.
-2. Añadir el repositorio de GitHub como servicio de aplicación. Railway detectará el `Dockerfile`.
-3. En el servicio de aplicación, configurar las variables `MYSQLHOST`, `MYSQLPORT`, `MYSQLDATABASE`, `MYSQLUSER` y `MYSQLPASSWORD` usando los valores del servicio MySQL. La aplicación también acepta los nombres `DB_*`.
-4. Ejecutar una importación de `database/schema.sql` contra el servicio MySQL. Puede hacerse desde un cliente local usando las credenciales públicas de Railway.
-5. Generar un dominio público para el servicio web.
-6. Comprobar `/health`, `/reservas` y `/api/reservas`.
-
-El endpoint `/health` comprueba que el proceso PHP está vivo y está configurado como health check del servicio. Las credenciales de MySQL se validan al cargar `/reservas` o cualquier endpoint de la API.
-
-Railway sigue siendo una alternativa válida si vuelve a permitir registros nuevos.
-
-### Render + Aiven
-
-Render puede ejecutar gratuitamente el contenedor web, mientras que Aiven ofrece una instancia MySQL gratuita para proyectos pequeños. Crear ambos servicios y añadir en Render las variables `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER` y `DB_PASSWORD` de Aiven. Para validar TLS, copiar también el contenido del certificado CA de Aiven en `DB_SSL_CA_CONTENT`; la aplicación lo usa sin guardar el certificado en Git.
+Para importar el esquema en Aiven desde Windows con XAMPP, ejecutar `powershell -ExecutionPolicy Bypass -File .\scripts\import-aiven.ps1`. El script solicita la contraseña de forma oculta y no la guarda. El endpoint `/health` comprueba que el proceso PHP está vivo; las credenciales MySQL se validan al cargar `/reservas` o cualquier endpoint de la API.
