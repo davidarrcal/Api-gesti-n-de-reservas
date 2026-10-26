@@ -1,8 +1,7 @@
 RewriteEngine On
 
-<FilesMatch "^\.env">
-    Require all denied
-</FilesMatch>
+# Block environment files without relying on Apache 2.4-only directives.
+RewriteRule ^\.env(?:$|/) - [F,L]
 
 # Keep real assets available and route application URLs through the front controller.
 RewriteCond %{REQUEST_FILENAME} !-f
