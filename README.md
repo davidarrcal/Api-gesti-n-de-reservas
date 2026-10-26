@@ -123,6 +123,8 @@ HOKAS ofrece un servidor PHP gratuito con MySQL, variables de entorno, HTTPS y d
 
 Para un hosting compartido sin document root configurable: subir el contenido de `public/`, junto con las carpetas `src/`, `templates/` y `vendor/`, directamente dentro de `htdocs/`. Ejecutar previamente `composer install --no-dev --optimize-autoloader` y crear `.env` en `htdocs/` con las credenciales de MySQL. El `.htaccess` bloquea el acceso HTTP a `.env`.
 
+Para importar el esquema en Aiven desde Windows con XAMPP, ejecutar `powershell -ExecutionPolicy Bypass -File .\scripts\import-aiven.ps1`. El script solicita la contraseña de forma oculta y no la guarda.
+
 La URL pública se añadirá aquí después de crear el servidor:
 
 `Demo: pendiente de configurar`
