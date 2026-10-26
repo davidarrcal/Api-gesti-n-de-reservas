@@ -107,7 +107,25 @@ DB_PASSWORD=...
 
 Después de crear la base de datos, importar `database/schema.sql` y configurar esas variables, comprobar `/reservas` y `/api/reservas`. No se debe subir `.env` al repositorio.
 
-### Railway
+### HOKAS (opcion recomendada para esta demo)
+
+HOKAS ofrece un servidor PHP gratuito con MySQL, variables de entorno, HTTPS y despliegue desde GitHub. La cuenta gratuita tiene recursos limitados y no garantiza disponibilidad continua, por lo que se utiliza únicamente como demo de la prueba técnica.
+
+1. Crear una cuenta en [HOKAS](https://hokas.net/sign-up).
+2. Crear un servidor de tipo **PHP Server** en el plan gratuito.
+3. Conectar el repositorio `davidarrcal/Api-gesti-n-de-reservas` desde GitHub.
+4. Configurar el document root en `public/` y ejecutar `composer install` desde la terminal del servidor si el panel no lo hace automáticamente.
+5. Crear una base MySQL desde el panel y guardar sus credenciales.
+6. Importar `database/schema.sql` desde la herramienta MySQL/phpMyAdmin del panel.
+7. Añadir como variables de entorno `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER` y `DB_PASSWORD`.
+8. Reiniciar o redeployar el servidor y abrir el subdominio HTTPS proporcionado.
+9. Comprobar `/health`, `/reservas` y `/api/reservas`.
+
+La URL pública se añadirá aquí después de crear el servidor:
+
+`Demo: pendiente de configurar`
+
+### Railway (alternativa)
 
 1. Crear un proyecto nuevo en Railway y añadir un servicio MySQL.
 2. Añadir el repositorio de GitHub como servicio de aplicación. Railway detectará el `Dockerfile`.
@@ -118,6 +136,4 @@ Después de crear la base de datos, importar `database/schema.sql` y configurar 
 
 El endpoint `/health` verifica que PHP puede conectarse a la base de datos y está configurado como health check del servicio.
 
-La URL pública se añadirá aquí después de crear el servicio de hosting:
-
-`Demo: pendiente de configurar`
+Railway sigue siendo una alternativa válida si vuelve a permitir registros nuevos.
