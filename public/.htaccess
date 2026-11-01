@@ -1,7 +1,7 @@
 RewriteEngine On
 
-# Redirect legacy browser favicon requests to the SVG icon.
-RewriteRule ^favicon\.ico$ /assets/favicon.svg [R=302,L]
+# Serve legacy browser favicon requests from the SVG icon without redirecting.
+RewriteRule ^favicon\.ico$ /assets/favicon.svg [L]
 
 # Block environment files without relying on Apache 2.4-only directives.
 RewriteRule ^\.env(?:$|/) - [F,L]
